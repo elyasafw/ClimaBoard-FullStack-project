@@ -1,13 +1,9 @@
 from fastapi import APIRouter
+from services.weather_service import get_weather_by_coordinates
 
 router = APIRouter(prefix="/weather")
 
 
-@router.get("/current")
-def current_weather():
-    pass
-
-
-@router.get("/future")
-def future_weather():
-    pass
+@router.get("/")
+def get_weather(latitude, longitude):
+    return get_weather_by_coordinates(latitude, longitude)
