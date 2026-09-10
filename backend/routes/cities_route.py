@@ -1,20 +1,6 @@
-from fastapi import APIRouter
-from pydantic import BaseModel
-from services.cities_service import (
-    get_cities_by_name,
-    weather_comparison_between_cities,
-)
-
-
-class CityModel(BaseModel):
-    latitude: float
-    longitude: float
-
-
-class CompareModel(BaseModel):
-    city1: CityModel
-    city2: CityModel
-
+from fastapi import APIRouter, Query
+from services.cities_service import get_cities_by_name
+from services.weather_service import get_weather_by_coordinates
 
 router = APIRouter(prefix="/cities")
 
@@ -24,7 +10,9 @@ def search_city(city_name):
     return get_cities_by_name(city_name)
 
 
-@router.post("/compare")
-def compare(body: CompareModel):
-    data = body.model_dump()
-    return weather_comparison_between_cities(data["city1"], data["city2"])
+@router.get("/compare")
+def compare(
+    longitudes: list[float] = Query(...),
+    latitudes: list[float] = Query(...),
+):
+    return get_weather_by_coordinates(longitudes, latitudes)
