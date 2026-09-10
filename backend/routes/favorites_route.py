@@ -23,7 +23,7 @@ def get_favorites(name):
     if not user:
         raise HTTPException(404, {"success": False, "error": f"user {name} not found"})
 
-    return {"success": True, "data": user}
+    return JSONResponse(content={"success": True, "data": user})
 
 
 @router.post("/")
@@ -47,10 +47,15 @@ def update_favorites(name, new_favorite: NewFavorite):
     user = f.get_user_by_name(favorites, name)
 
     if not user:
-        raise HTTPException(404, {"success": False, "error": f"user {name} not found"})
+        raise HTTPException(
+            status_code=404,
+            detail={"success": False, "error": f"user {name} not found"},
+        )
 
     f.update_favorite(favorites, new_favorite.model_dump(), user)
-    return {"success": True, "message": "new favorite added successfully"}
+    return JSONResponse(
+        content={"success": True, "message": "new favorite added successfully"}
+    )
 
 
 @router.delete("/{id}")
@@ -59,12 +64,18 @@ def delete_favorite(name, id: int):
     user = f.get_user_by_name(favorites, name)
 
     if not user:
-        raise HTTPException(404, {"success": False, "error": f"user {name} not found"})
+        raise HTTPException(
+            status_code=404,
+            detail={"success": False, "error": f"user {name} not found"},
+        )
 
     if not f.get_favorite_by_id(user["favorites"], id):
         raise HTTPException(
-            404, {"success": False, "error": f"favorite ID: {id} not found in list"}
+            status_code=404,
+            detail={"success": False, "error": f"favorite ID: {id} not found in list"},
         )
 
     f.delete_favorite(favorites, id, user)
-    return {"success": True, "message": "favorite delted successfully"}
+    return JSONResponse(
+        content={"success": True, "message": "favorite delted successfully"}
+    )
