@@ -283,3 +283,7 @@ http-client.private.env.json
 
 # Build Tools
 cmake-build-*/
+
+
+# local files
+data
