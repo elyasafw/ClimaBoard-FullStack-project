@@ -12,7 +12,7 @@ def search_city(city_name):
 
 @router.get("/compare")
 def compare(
-    longitudes: list[float] = Query(...),
-    latitudes: list[float] = Query(...),
+    longitudes: list[float] = Query(...),  # noqa: B008
+    latitudes: list[float] = Query(...),  # noqa: B008
 ):
     return get_weather_by_coordinates(longitudes, latitudes)

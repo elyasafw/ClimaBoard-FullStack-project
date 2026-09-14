@@ -21,8 +21,8 @@ def atbash(text: str):
             current_lang = english_letters
         else:
             current_lang = hebrew_letters
-            for l in final_letters:
-                text = text.replace(l, final_letters[l])
+            for key in final_letters:  # noqa: PLC0206
+                text = text.replace(key, final_letters[key])
 
         result = ""
 
