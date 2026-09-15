@@ -1,9 +1,15 @@
-import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 const NotFoundPage = () => {
-  return (
-    <div>NotFoundPage</div>
-  )
-}
+    const navigate = useNavigate();
+    return (
+        <>
+            <h1>404</h1>
+            <h1> הדף לא קיים ...</h1>
+            <br />
+            <button onClick={() => navigate(-1)}>חזור</button>
+        </>
+    );
+};
 
-export default NotFoundPage
+export default NotFoundPage;

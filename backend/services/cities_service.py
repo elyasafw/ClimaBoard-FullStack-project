@@ -1,6 +1,6 @@
 import requests
 
-URL = "https://geocoding-api.open-meteo.com/v1/search"
+URL = "https://geocoding-api.open-meteo.com/v1/search?language=he"
 
 
 def get_cities_by_name(name):
@@ -10,9 +10,9 @@ def get_cities_by_name(name):
     try:
         response = requests.get(URL, params=params)
         response.raise_for_status()
-        data = response.json()["results"]
+        data = response.json()
 
-        return {"success": True, "data": data, "count": len(data)}
+        return data
     except requests.exceptions.RequestException as e:
         print(f"ERROR: {e}")
         return {}

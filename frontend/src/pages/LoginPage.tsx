@@ -30,7 +30,7 @@ const LoginPage = ({ children }: { children: ReactNode }) => {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <h2>ברוך הבא ל ClimaBoard</h2>
+                <h2>ברוך הבא ל ClimeBoard</h2>
                 <label>
                     שם משתמש:
                     <input

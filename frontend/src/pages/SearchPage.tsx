@@ -1,9 +1,26 @@
-import React from 'react'
+import { useMemo, useState } from "react";
+import SearchBar from "../components/SearchBar";
+import SearchResults from "../components/SearchResults";
+import { useFetch } from "../hooks/useFetch";
+import { getSearchResults, type SearchData, } from "../services/searchService";
 
 const SearchPage = () => {
-  return (
-    <div>SearchPage</div>
-  )
-}
+    const [filter, setFilter] = useState<string>("");
 
-export default SearchPage
+    const citiesFetch = useMemo(() => {
+        return filter ? () => getSearchResults(filter) : null;
+    }, [filter]);
+
+    const { data: results, error: searchError } =
+        useFetch<SearchData>(citiesFetch);
+
+    return (
+        <>
+            <h2>חיפוש מזג אוויר לפי עיר</h2>
+            <SearchBar setFilter={setFilter} />
+            <SearchResults results={results} searchError={searchError}/>
+        </>
+    );
+};
+
+export default SearchPage;
