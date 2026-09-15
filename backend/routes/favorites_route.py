@@ -15,7 +15,7 @@ class NewFavorite(BaseModel):
 router = APIRouter(prefix="/favorites/{name}")
 
 
-@router.get("/")
+@router.get("")
 def get_favorites(name):
     favorites = f.read_favorites()
     user = f.get_user_by_name(favorites, name)
@@ -26,7 +26,7 @@ def get_favorites(name):
     return JSONResponse(content={"success": True, "data": user})
 
 
-@router.post("/")
+@router.post("")
 def create_favorites(user_name):
     favorites = f.read_favorites()
     if f.get_user_by_name(favorites, user_name):
@@ -41,7 +41,7 @@ def create_favorites(user_name):
     )
 
 
-@router.put("/")
+@router.put("")
 def update_favorites(name, new_favorite: NewFavorite):
     favorites = f.read_favorites()
     user = f.get_user_by_name(favorites, name)
@@ -58,7 +58,7 @@ def update_favorites(name, new_favorite: NewFavorite):
     )
 
 
-@router.delete("/{id}")
+@router.delete("{id}")
 def delete_favorite(name, id: int):
     favorites = f.read_favorites()
     user = f.get_user_by_name(favorites, name)

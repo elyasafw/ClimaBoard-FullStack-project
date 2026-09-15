@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { SearchData } from "../services/searchService";
 
 const SearchResults = ({
@@ -7,20 +8,26 @@ const SearchResults = ({
     results: SearchData | null;
     searchError: string | null;
 }) => {
-    const cities = results && results.results;
     return (
         <>
             {searchError && <p>שגיאה בקבלת נתוני החיפוש</p>}
-            {cities?.map((r) => {
-                return (
-                    <div key={r.id}>
-                        <h3>
-                            עיר: {r.name}
-                            {r.country ? ` | מדינה: ${r.country}` : ""}
-                        </h3>
-                    </div>
-                );
-            })}
+            {results &&
+                results.results?.map((r) => {
+                    const params = new URLSearchParams({
+                        lat: String(r.latitude),
+                        lon: String(r.longitude),
+                        name: r.name,
+                    });
+
+                    return (
+                        <Link to={`/city/${r.id}?${params}`} key={r.id}>
+                            <h3>
+                                עיר: {r.name}
+                                {r.country ? ` | מדינה: ${r.country}` : ""}
+                            </h3>
+                        </Link>
+                    );
+                })}
         </>
     );
 };

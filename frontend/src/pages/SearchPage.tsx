@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import { useFetch } from "../hooks/useFetch";
-import { getSearchResults, type SearchData, } from "../services/searchService";
+import { getSearchResults, type SearchData } from "../services/searchService";
 
 const SearchPage = () => {
     const [filter, setFilter] = useState<string>("");
@@ -18,7 +18,7 @@ const SearchPage = () => {
         <>
             <h2>חיפוש מזג אוויר לפי עיר</h2>
             <SearchBar setFilter={setFilter} />
-            <SearchResults results={results} searchError={searchError}/>
+            <SearchResults results={results} searchError={searchError} />
         </>
     );
 };

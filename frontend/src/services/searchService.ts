@@ -7,7 +7,8 @@ export type SearchData = {
             name: string;
             latitude: number;
             longitude: number;
-            country: string;
+            country?: string;
+            admin1?: string;
         },
     ];
 };

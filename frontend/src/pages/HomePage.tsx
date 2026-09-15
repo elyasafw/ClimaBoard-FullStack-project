@@ -1,6 +1,6 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import Weather from "../components/Weather";
+import CurrentWeather from "../components/CurrentWeather";
 import { useFetch } from "../hooks/useFetch";
 import { getWeather, type WeatherData } from "../services/weatherService";
 import { UserContext } from "../store/UsersContext";
@@ -55,7 +55,10 @@ const HomePage = () => {
         <div>
             <h2>שלום {userName}</h2>
             <p>{location}</p>
-            <Weather weather={weather} weatherError={weatherError} />
+            <CurrentWeather
+                weather={weather ? weather.current : null}
+                weatherError={weatherError}
+            />
             <div>
                 <Link to="/search">חיפוש</Link>
                 <Link to="/compare">השוואה</Link>
