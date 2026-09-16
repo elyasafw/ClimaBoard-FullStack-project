@@ -1,5 +1,5 @@
 import services.favorites_service as f
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Path
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
@@ -14,9 +14,11 @@ class NewFavorite(BaseModel):
 
 router = APIRouter(prefix="/favorites/{name}")
 
+NamePath = Path(..., min_length=1, max_length=50)
+
 
 @router.get("")
-def get_favorites(name):
+def get_favorites(name: str = NamePath):
     favorites = f.read_favorites()
     user = f.get_user_by_name(favorites, name)
 
@@ -27,14 +29,14 @@ def get_favorites(name):
 
 
 @router.post("")
-def create_favorites(user_name):
+def create_favorites(name: str = NamePath):
     favorites = f.read_favorites()
-    if f.get_user_by_name(favorites, user_name):
+    if f.get_user_by_name(favorites, name):
         raise HTTPException(
-            409, {"success": False, "error": f"user {user_name} already exist"}
+            409, {"success": False, "error": f"user {name} already exist"}
         )
 
-    f.create_new_favorite(favorites, user_name)
+    f.create_new_favorite(favorites, name)
     return JSONResponse(
         content={"success": True, "message": "new user created successfully"},
         status_code=201,
@@ -42,7 +44,7 @@ def create_favorites(user_name):
 
 
 @router.put("")
-def update_favorites(name, new_favorite: NewFavorite):
+def update_favorites(new_favorite: NewFavorite, name: str = NamePath):
     favorites = f.read_favorites()
     user = f.get_user_by_name(favorites, name)
 
@@ -58,8 +60,8 @@ def update_favorites(name, new_favorite: NewFavorite):
     )
 
 
-@router.delete("{id}")
-def delete_favorite(name, id: int):
+@router.delete("/{id}")
+def delete_favorite(id: int, name: str = NamePath):
     favorites = f.read_favorites()
     user = f.get_user_by_name(favorites, name)
 
@@ -77,5 +79,5 @@ def delete_favorite(name, id: int):
 
     f.delete_favorite(favorites, id, user)
     return JSONResponse(
-        content={"success": True, "message": "favorite delted successfully"}
+        content={"success": True, "message": "favorite deleted successfully"}
     )
