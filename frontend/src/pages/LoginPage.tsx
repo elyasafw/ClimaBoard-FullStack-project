@@ -1,4 +1,5 @@
 import React, { useContext, useState, type ReactNode } from "react";
+import { createExplorer } from "../services/favoritesService";
 import { UserContext } from "../store/UsersContext";
 
 const LoginPage = ({ children }: { children: ReactNode }) => {
@@ -15,15 +16,27 @@ const LoginPage = ({ children }: { children: ReactNode }) => {
         return <>{children}</>;
     }
 
-    const handleSubmit = (e: React.SubmitEvent) => {
+    const handleSubmit = async (e: React.SubmitEvent) => {
         e.preventDefault();
 
-        if (inputValue.trim() === "") {
+        const trimmedName = inputValue.trim();
+        if (trimmedName === "") {
             alert("אנא הכנס שם משתמש תקין");
             return;
         }
 
-        setUser(inputValue);
+        try {
+            await createExplorer(trimmedName);
+        } catch (err) {
+            const status = (err as { response?: { status?: number } }).response
+                ?.status;
+
+            if (status !== 409) {
+                console.error("failed to register explorer:", err);
+            }
+        }
+
+        setUser(trimmedName);
         setInputValue("");
     };
 
