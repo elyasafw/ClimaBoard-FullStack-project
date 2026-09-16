@@ -1,4 +1,5 @@
 import requests
+from fastapi import HTTPException
 
 URL = "https://api.open-meteo.com/v1/forecast"
 
@@ -36,4 +37,6 @@ def get_weather_by_coordinates(lat: float, lon: float):
         return data
     except requests.exceptions.RequestException as e:
         print(f"ERROR: {e}")
-        return {}
+        raise HTTPException(
+            status_code=503, detail={"error": "weather service is unavailable"}
+        )

@@ -1,4 +1,5 @@
 import requests
+from fastapi import HTTPException
 
 URL = "https://geocoding-api.open-meteo.com/v1/search?language=he"
 
@@ -15,4 +16,6 @@ def get_cities_by_name(name):
         return data
     except requests.exceptions.RequestException as e:
         print(f"ERROR: {e}")
-        return {}
+        raise HTTPException(
+            status_code=503, detail={"error": "cities service is unavailable"}
+        )
