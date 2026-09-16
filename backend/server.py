@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from middleware.logging_middleware import log_requests
 from routes.cities_route import router as cities_router
 from routes.favorites_route import router as favorites_router
 from routes.general_route import router as general_router
@@ -16,6 +17,8 @@ server.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+server.middleware("http")(log_requests)
 
 server.include_router(general_router, tags=["general"])
 server.include_router(weather_router, tags=["weather"])
