@@ -7,9 +7,13 @@ export function useFetch<T>(fetch: (() => Promise<AxiosResponse<T>>) | null) {
     const requestId = useRef(0);
 
     useEffect(() => {
-        if (!fetch) return;
-
         const currentRequestId = ++requestId.current;
+
+        if (!fetch) {
+            setData(null);
+            setError(null);
+            return;
+        }
 
         fetch()
             .then((response) => {
