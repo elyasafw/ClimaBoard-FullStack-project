@@ -1,15 +1,15 @@
 import services.favorites_service as f
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class NewFavorite(BaseModel):
     id: int
-    name: str
-    latitude: float
-    longitude: float
-    country: str
+    name: str = Field(..., min_length=1, max_length=100)
+    latitude: float = Field(..., ge=-90, le=90)
+    longitude: float = Field(..., ge=-180, le=180)
+    country: str = Field(..., min_length=1, max_length=100)
 
 
 router = APIRouter(prefix="/favorites/{name}")
