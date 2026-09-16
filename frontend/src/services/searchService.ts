@@ -1,16 +1,14 @@
 import { api } from "../api/axios";
 
 export type SearchData = {
-    results: [
-        {
-            id: number;
-            name: string;
-            latitude: number;
-            longitude: number;
-            country?: string;
-            admin1?: string;
-        },
-    ];
+    results: {
+        id: number;
+        name: string;
+        latitude: number;
+        longitude: number;
+        country?: string;
+        admin1?: string;
+    }[];
 };
 
 export function getSearchResults(cityName: string) {

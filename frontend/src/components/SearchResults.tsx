@@ -11,6 +11,7 @@ const SearchResults = ({
     return (
         <>
             {searchError && <p>שגיאה בקבלת נתוני החיפוש</p>}
+            {results && !results.results?.length && <p>לא נמצאו ערים</p>}
             {results &&
                 results.results?.map((r) => {
                     const params = new URLSearchParams({
