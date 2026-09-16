@@ -22,7 +22,8 @@ const ComparePage = () => {
             );
     }, [cityA, cityB]);
 
-    const { data: comparison, error } = useFetch<CompareData>(compareFetch);
+    const { data: comparison, error, loading } =
+        useFetch<CompareData>(compareFetch);
 
     return (
         <>
@@ -48,6 +49,7 @@ const ComparePage = () => {
                 }}
             />
 
+            {loading && <p>טוען השוואה...</p>}
             {error && <p>שגיאה בקבלת נתוני ההשוואה</p>}
 
             {comparison && (

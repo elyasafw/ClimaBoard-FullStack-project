@@ -32,7 +32,7 @@ const CityDetails = () => {
         return () => getWeather(lat, lon);
     }, [lat, lon]);
 
-    const { data: weather, error: weatherError } =
+    const { data: weather, error: weatherError, loading } =
         useFetch<WeatherData>(weatherFetch);
 
     useEffect(() => {
@@ -64,6 +64,7 @@ const CityDetails = () => {
 
     return (
         <>
+            {loading && <p>טוען תחזית...</p>}
             <CityWeather
                 name={name}
                 cityWeather={weather ? weather.daily : null}

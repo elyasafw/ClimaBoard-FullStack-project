@@ -5,7 +5,7 @@ import { useFavoritesStore } from "../store/useFavoritesStore";
 
 const FavoritesPage = () => {
     const context = useContext(UserContext);
-    const { favorites, error, fetchFavorites, removeFavorite } =
+    const { favorites, error, loading, fetchFavorites, removeFavorite } =
         useFavoritesStore();
     const [deleteError, setDeleteError] = useState<string | null>(null);
 
@@ -31,9 +31,12 @@ const FavoritesPage = () => {
     return (
         <>
             <h2>ערים מועדפות</h2>
+            {loading && <p>טוען מועדפים...</p>}
             {error && <p>{error}</p>}
             {deleteError && <p>{deleteError}</p>}
-            {!error && favorites.length === 0 && <p>אין לך עדיין ערים מועדפות</p>}
+            {!loading && !error && favorites.length === 0 && (
+                <p>אין לך עדיין ערים מועדפות</p>
+            )}
             <FavoritesList favorites={favorites} onDelete={handleDelete} />
         </>
     );

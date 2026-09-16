@@ -20,7 +20,7 @@ const HomePage = () => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
 
-                    setLocation(`${latitude} | ${longitude}`);
+                    setLocation("📍 המיקום הנוכחי שלך");
                     setCoords({ lat: latitude, lon: longitude });
                 },
                 (error) => {
@@ -42,7 +42,7 @@ const HomePage = () => {
         return coords ? () => getWeather(coords.lat, coords.lon) : null;
     }, [coords]);
 
-    const { data: weather, error: weatherError } =
+    const { data: weather, error: weatherError, loading } =
         useFetch<WeatherData>(weatherFetch);
 
     if (!context) {
@@ -55,6 +55,7 @@ const HomePage = () => {
         <div>
             <h2>שלום {userName}</h2>
             <p>{location}</p>
+            {loading && <p>טוען מזג אוויר...</p>}
             <CurrentWeather
                 weather={weather ? weather.current : null}
                 weatherError={weatherError}

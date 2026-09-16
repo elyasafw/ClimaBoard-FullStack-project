@@ -9,6 +9,7 @@ import {
 interface FavoritesState {
     favorites: Favorite[];
     loaded: boolean;
+    loading: boolean;
     error: string | null;
     fetchFavorites: (explorerName: string) => Promise<void>;
     addFavorite: (explorerName: string, favorite: Favorite) => Promise<void>;
@@ -18,14 +19,26 @@ interface FavoritesState {
 export const useFavoritesStore = create<FavoritesState>((set) => ({
     favorites: [],
     loaded: false,
+    loading: false,
     error: null,
 
     fetchFavorites: async (explorerName) => {
+        set({ loading: true });
         try {
             const response = await getFavorites(explorerName);
-            set({ favorites: response.data.data.favorites, loaded: true, error: null });
+            set({
+                favorites: response.data.data.favorites,
+                loaded: true,
+                loading: false,
+                error: null,
+            });
         } catch {
-            set({ favorites: [], loaded: true, error: "שגיאה בשליפת המועדפים" });
+            set({
+                favorites: [],
+                loaded: true,
+                loading: false,
+                error: "שגיאה בשליפת המועדפים",
+            });
         }
     },
 

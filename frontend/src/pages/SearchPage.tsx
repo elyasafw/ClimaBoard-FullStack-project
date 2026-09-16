@@ -11,13 +11,14 @@ const SearchPage = () => {
         return filter ? () => getSearchResults(filter) : null;
     }, [filter]);
 
-    const { data: results, error: searchError } =
+    const { data: results, error: searchError, loading } =
         useFetch<SearchData>(citiesFetch);
 
     return (
         <>
             <h2>חיפוש מזג אוויר לפי עיר</h2>
             <SearchBar setFilter={setFilter} />
+            {loading && <p>מחפש...</p>}
             <SearchResults results={results} searchError={searchError} />
         </>
     );

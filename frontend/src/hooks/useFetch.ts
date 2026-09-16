@@ -4,6 +4,7 @@ import type { AxiosResponse } from "axios";
 export function useFetch<T>(fetch: (() => Promise<AxiosResponse<T>>) | null) {
     const [data, setData] = useState<T | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
     const requestId = useRef(0);
 
     useEffect(() => {
@@ -12,8 +13,11 @@ export function useFetch<T>(fetch: (() => Promise<AxiosResponse<T>>) | null) {
         if (!fetch) {
             setData(null);
             setError(null);
+            setLoading(false);
             return;
         }
+
+        setLoading(true);
 
         fetch()
             .then((response) => {
@@ -25,8 +29,12 @@ export function useFetch<T>(fetch: (() => Promise<AxiosResponse<T>>) | null) {
                 if (currentRequestId !== requestId.current) return;
                 console.error("useFetch failed:", err);
                 setError("שגיאה בשליפת הנתונים");
+            })
+            .finally(() => {
+                if (currentRequestId !== requestId.current) return;
+                setLoading(false);
             });
     }, [fetch]);
 
-    return { data, error };
+    return { data, error, loading };
 }
