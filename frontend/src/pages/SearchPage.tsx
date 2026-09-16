@@ -15,12 +15,12 @@ const SearchPage = () => {
         useFetch<SearchData>(citiesFetch);
 
     return (
-        <>
+        <div className="page-center">
             <h2>חיפוש מזג אוויר לפי עיר</h2>
             <SearchBar setFilter={setFilter} />
             {loading && <p>מחפש...</p>}
             <SearchResults results={results} searchError={searchError} />
-        </>
+        </div>
     );
 };
 

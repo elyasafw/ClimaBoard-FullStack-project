@@ -1,4 +1,5 @@
 import React, { useContext, useState, type ReactNode } from "react";
+import logo from "../assets/logo.png";
 import { createExplorer } from "../services/favoritesService";
 import { UserContext } from "../store/UsersContext";
 
@@ -41,7 +42,8 @@ const LoginPage = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <>
+        <div className="login-screen">
+            <img src={logo} alt="ClimeBoard" className="logo login-logo" />
             <form onSubmit={handleSubmit}>
                 <h2>ברוך הבא ל ClimeBoard</h2>
                 <label>
@@ -58,7 +60,7 @@ const LoginPage = ({ children }: { children: ReactNode }) => {
                 </label>
                 <button type="submit">הרשם</button>
             </form>
-        </>
+        </div>
     );
 };
 

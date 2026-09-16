@@ -26,35 +26,37 @@ const ComparePage = () => {
         useFetch<CompareData>(compareFetch);
 
     return (
-        <>
+        <div className="page-center compare-page">
             <h2>השוואת ערים</h2>
-            <CityPicker
-                key={`a-${pickerAKey}`}
-                label="עיר ראשונה"
-                selected={cityA}
-                onSelect={setCityA}
-                onClear={() => {
-                    setCityA(null);
-                    setPickerAKey((k) => k + 1);
-                }}
-            />
-            <CityPicker
-                key={`b-${pickerBKey}`}
-                label="עיר שנייה"
-                selected={cityB}
-                onSelect={setCityB}
-                onClear={() => {
-                    setCityB(null);
-                    setPickerBKey((k) => k + 1);
-                }}
-            />
+            <div className="compare-pickers">
+                <CityPicker
+                    key={`a-${pickerAKey}`}
+                    label="עיר ראשונה"
+                    selected={cityA}
+                    onSelect={setCityA}
+                    onClear={() => {
+                        setCityA(null);
+                        setPickerAKey((k) => k + 1);
+                    }}
+                />
+                <CityPicker
+                    key={`b-${pickerBKey}`}
+                    label="עיר שנייה"
+                    selected={cityB}
+                    onSelect={setCityB}
+                    onClear={() => {
+                        setCityB(null);
+                        setPickerBKey((k) => k + 1);
+                    }}
+                />
+            </div>
 
             {loading && <p>טוען השוואה...</p>}
             {error && <p>שגיאה בקבלת נתוני ההשוואה</p>}
 
             {comparison && (
-                <div>
-                    <div>
+                <div className="compare-results">
+                    <div className="compare-column">
                         <h3>{cityA?.name}</h3>
                         <CurrentWeather
                             weather={comparison.first.current}
@@ -66,7 +68,7 @@ const ComparePage = () => {
                             weatherError={null}
                         />
                     </div>
-                    <div>
+                    <div className="compare-column">
                         <h3>{cityB?.name}</h3>
                         <CurrentWeather
                             weather={comparison.second.current}
@@ -80,7 +82,7 @@ const ComparePage = () => {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

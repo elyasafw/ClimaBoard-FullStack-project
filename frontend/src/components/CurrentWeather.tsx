@@ -7,8 +7,12 @@ const CurrentWeather = ({
     weather: WeatherData["current"] | null;
     weatherError: string | null;
 }) => {
+    if (!weather && !weatherError) {
+        return null;
+    }
+
     return (
-        <>
+        <div className="weather-card">
             {weatherError && <p>שגיאה בקבלת נתוני מזג האוויר</p>}
             {weather && (
                 <p>
@@ -20,7 +24,7 @@ const CurrentWeather = ({
                     {weather.precipitation} מ"מ
                 </p>
             )}
-        </>
+        </div>
     );
 };
 

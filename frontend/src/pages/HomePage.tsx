@@ -52,18 +52,26 @@ const HomePage = () => {
     const { userName } = context;
 
     return (
-        <div>
+        <div className="page-center home-page">
             <h2>שלום {userName}</h2>
-            <p>{location}</p>
+
+            <p className="home-location">{location}</p>
             {loading && <p>טוען מזג אוויר...</p>}
             <CurrentWeather
                 weather={weather ? weather.current : null}
                 weatherError={weatherError}
             />
-            <div>
-                <Link to="/search">חיפוש</Link>
-                <Link to="/compare">השוואה</Link>
-                <Link to="/favorites">מועדפים</Link>
+
+            <div className="home-shortcuts">
+                <Link to="/search" className="shortcut-btn">
+                    חיפוש
+                </Link>
+                <Link to="/compare" className="shortcut-btn">
+                    השוואה
+                </Link>
+                <Link to="/favorites" className="shortcut-btn">
+                    מועדפים
+                </Link>
             </div>
         </div>
     );

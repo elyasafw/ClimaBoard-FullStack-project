@@ -1,6 +1,7 @@
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import CityWeather from "../components/CityWeather";
+import CurrentWeather from "../components/CurrentWeather";
 import { useFetch } from "../hooks/useFetch";
 import { getWeather, type WeatherData } from "../services/weatherService";
 import { UserContext } from "../store/UsersContext";
@@ -64,11 +65,16 @@ const CityDetails = () => {
 
     return (
         <>
+            {name && <h3>{name}</h3>}
             {loading && <p>טוען תחזית...</p>}
-            <CityWeather
-                name={name}
-                cityWeather={weather ? weather.daily : null}
+            <CurrentWeather
+                weather={weather ? weather.current : null}
                 weatherError={weatherError}
+            />
+            <CityWeather
+                name={null}
+                cityWeather={weather ? weather.daily : null}
+                weatherError={null}
             />
             <button onClick={handleToggleFavorite}>
                 {isFavorite ? "הסר ממועדפים" : "הוסף למועדפים"}

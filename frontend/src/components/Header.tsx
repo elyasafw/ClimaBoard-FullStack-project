@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
 import { UserContext } from "../store/UsersContext";
 
 const Header = () => {
@@ -12,8 +13,8 @@ const Header = () => {
     };
 
     return (
-        <header>
-            <h1>ClimeBoard</h1>
+        <header className="app-header">
+            <img src={logo} alt="ClimeBoard" className="logo" />
             <nav>
                 <NavLink to={"/"}>דף הבית</NavLink>
                 <NavLink to={"/search"}>חיפוש</NavLink>

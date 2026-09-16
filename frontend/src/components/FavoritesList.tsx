@@ -15,7 +15,8 @@ const FavoritesList = ({
                     <Link
                         to={`/city/${favorite.id}?lat=${favorite.latitude}&lon=${favorite.longitude}&name=${favorite.name}&country=${favorite.country}`}
                     >
-                        {favorite.name} {favorite.country ? `| ${favorite.country}` : ""}
+                        {favorite.name}{" "}
+                        {favorite.country ? `| ${favorite.country}` : ""}
                     </Link>
                     <button onClick={() => onDelete(favorite.id)}>הסר</button>
                 </li>

@@ -29,7 +29,7 @@ const FavoritesPage = () => {
     };
 
     return (
-        <>
+        <div className="page-center">
             <h2>ערים מועדפות</h2>
             {loading && <p>טוען מועדפים...</p>}
             {error && <p>{error}</p>}
@@ -38,7 +38,7 @@ const FavoritesPage = () => {
                 <p>אין לך עדיין ערים מועדפות</p>
             )}
             <FavoritesList favorites={favorites} onDelete={handleDelete} />
-        </>
+        </div>
     );
 };
 
