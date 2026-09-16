@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import JSONResponse
 
 router = APIRouter()
@@ -10,7 +10,7 @@ def get_health():
 
 
 @router.get("/atbash")
-def atbash(text: str):
+def atbash(text: str = Query(..., min_length=1, max_length=1000)):
     try:
         text = text.lower()
         english_letters = "abcdefghijklmnopqrstuvwxyz"
