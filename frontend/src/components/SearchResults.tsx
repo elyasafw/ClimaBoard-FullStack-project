@@ -17,6 +17,7 @@ const SearchResults = ({
                         lat: String(r.latitude),
                         lon: String(r.longitude),
                         name: r.name,
+                        country: r.country ?? "לא ידוע",
                     });
 
                     return (
